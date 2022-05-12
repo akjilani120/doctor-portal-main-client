@@ -1,4 +1,5 @@
 import React from 'react';
+import ExceptionCare from './ExceptionCare/ExceptionCare';
 import HomeContact from './HomeContact/HomeContact';
 import HomeHeader from './HomeHeader/HomeHeader';
 import HomeService from './HomeService/HomeService';
@@ -9,6 +10,7 @@ const Home = () => {
            <HomeHeader></HomeHeader>
            <HomeContact></HomeContact>
            <HomeService></HomeService>
+           <ExceptionCare></ExceptionCare>
         </div>
     );
 };
