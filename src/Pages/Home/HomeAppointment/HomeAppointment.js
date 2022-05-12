@@ -7,7 +7,7 @@ const HomeAppointment = () => {
         <section className='bg-appointment'  style={{backgroundImage:`url(${bg})` , }}  >
             <div class="hero min-h-screen  text-left"  >
                 <div class="hero-content flex-col lg:flex-row items-center mb-24" >
-                    <img className=' hidden lg:block' style={{marginTop:"-100px"}} src={doctor} class="max-w-sm rounded-lg shadow-2xl" />
+                    <img className=' md:hidden lg:block' style={{marginTop:"-100px"}} src={doctor} class="max-w-sm rounded-lg shadow-2xl" />
                     <div className='   text-white mb-20'>
                         <h1 class="text-2xl font-bold text-secondary ">Appoinment</h1>
                         <h1 class="text-5xl font-bold ">Make an appointment Today</h1>
