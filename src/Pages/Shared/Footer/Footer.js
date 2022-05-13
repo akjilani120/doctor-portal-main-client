@@ -2,7 +2,8 @@ import React from 'react';
 import footerbg from '../../asset/images/footer.png'
 const Footer = () => {
     return (
-        <footer style={{backgroundImage:`url(${footerbg})`, backgroundPosition:"center"}} class="footer p-10 text-neutral text-neutral-content">
+       <section style={{backgroundImage:`url(${footerbg})`, backgroundPosition:"center"}}>
+            <footer  class="footer p-10 text-neutral ">
             <div>
                 <span class="footer-title">Services</span>
                 <a class="link link-hover">Branding</a>
@@ -23,7 +24,10 @@ const Footer = () => {
                 <a class="link link-hover">Privacy policy</a>
                 <a class="link link-hover">Cookie policy</a>
             </div>
+            
         </footer>
+        <h1 className='text-center pb-5'>Copyright 2022 All Rights Reserved</h1>
+       </section>
     );
 };
 

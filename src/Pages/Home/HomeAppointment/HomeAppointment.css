@@ -1,5 +1,10 @@
 .bg-appointment{
     background-position: left center;
     background-size: cover;
-    height: 570px;
+    height: 440px;
+}
+@media screen and (max-width:990px) {
+    .doctor{
+        display: none;
+    }
 }

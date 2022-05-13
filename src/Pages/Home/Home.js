@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../Shared/Footer/Footer';
 import ContactForm from './ContactForm/ContactForm';
 import ExceptionCare from './ExceptionCare/ExceptionCare';
 import HomeAppointment from './HomeAppointment/HomeAppointment';
@@ -17,6 +18,7 @@ const Home = () => {
            <HomeAppointment></HomeAppointment>
            <Testimonia></Testimonia>
            <ContactForm></ContactForm>
+           <Footer></Footer>
         </div>
     );
 };
