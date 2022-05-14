@@ -33,10 +33,10 @@ const HomeService = () => {
             <div className='grid lg:grid-cols-3 md:grid-cols-2 gap-4 px-12 my-10'>
                 {
                     services.map(service => <>  
-                        <div class="card text-center bg-base-100 shadow-xl p-3">
+                        <div className="card text-center bg-base-100 shadow-xl p-3">
                             <figure><img src={service.img} alt="Shoes" /></figure>
-                            <div class="card-body text-center">
-                                <h2 class="card-title ">{service.name}</h2>
+                            <div className="card-body text-center">
+                                <h2 className="card-title ">{service.name}</h2>
                                 <p>{service.title}</p>
                                 
                             </div>

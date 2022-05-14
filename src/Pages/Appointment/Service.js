@@ -12,9 +12,9 @@ const Service = ({ service, setTreatment}) => {
               <span className='text-red-500'>Not avaiable</span>
               }</p>
           <p>{slots.length} {slots.length > 1 ? "spaces" :"space"} avaiable</p>
-          <div class="card-actions justify-center ">
+          <div className="card-actions justify-center ">
             {/* <button  className="btn btn-secondary px-10 text-white"></button> */}
-            <label onClick={() => setTreatment(service)} disabled={slots.length === 0} for="booking-modal" class="btn btn btn-secondary px-10 text-white modal-button">Book Appointment</label>
+            <label onClick={() => setTreatment(service)} disabled={slots.length === 0} for="booking-modal" className="btn btn btn-secondary px-10 text-white modal-button">Book Appointment</label>
           </div>
         </div>
       </div>

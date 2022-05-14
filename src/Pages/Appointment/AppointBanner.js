@@ -8,9 +8,9 @@ const AppointBanner = ({date, setDate}) => {
    
     return (
        <section className='header-sec px-12' style={{backgroundImage:`url(${bg})`}}>
-            <div class="hero min-h-screen ">
-            <div class=" ml-12 hero-content flex-col lg:flex-row-reverse">
-                <img src={chair} class="max-w-sm rounded-lg shadow-2xl" />
+            <div className="hero min-h-screen ">
+            <div className=" ml-12 hero-content flex-col lg:flex-row-reverse">
+                <img src={chair} className="max-w-sm rounded-lg shadow-2xl" />
                 <div>
                 <DayPicker
                 mode="single"

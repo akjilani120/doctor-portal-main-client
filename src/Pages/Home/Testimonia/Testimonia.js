@@ -42,15 +42,15 @@ const Testimonia = () => {
             <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {
                     peoples.map(people => <>
-                        <div class="card w-96 bg-base-100 shadow-xl">
-                            <div class="card-body">
-                                <h2 class="card-title">{people.title}</h2>
+                        <div className="card w-96 bg-base-100 shadow-xl">
+                            <div className="card-body">
+                                <h2 className="card-title">{people.title}</h2>
 
                             </div>
                             <div className='flex items-center px-5 pb-3'>
                                 <div>
-                                    <div class="avatar">
-                                    <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                    <div className="avatar">
+                                    <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                                         <img src={people.img} />
                                     </div>
                                 </div>
