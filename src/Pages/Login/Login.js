@@ -1,24 +1,35 @@
 import React from 'react';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
 import { useForm } from "react-hook-form";
 import './login.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const Login = () => {
     const { register, handleSubmit ,  formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
-
-    const [signInWithGoogle, user, loading, gerror] = useSignInWithGoogle(auth);
+   const navigate = useNavigate()
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
     const handleGoogle = () => {
         signInWithGoogle()
     }
     let errorHandle ;
-    if(gerror){
-        errorHandle=(gerror.message)
+    if(gerror || error){
+        errorHandle=(gerror?.message || error?.message)
     }
-    if (user) {
-        console.log(user)
+    if( gloading ||  loading){
+        return <loading></loading>
     }
+    if (user || guser) {
+        navigate("/appointment")
+    }
+    const onSubmit = data => {
+        signInWithEmailAndPassword(data.email , data.password)
+    };
     return (
         <div className='flex justify-center items-center h-4/5 h-screen '>
             <div className="card  bg-base-100 shadow-xl  login ">
