@@ -6,6 +6,7 @@ import Appointment from './Pages/Appointment/Appointment';
 import ContactUs from './Pages/Contact/ContactUs';
 import Home from './Pages/Home/Home'
 import Login from './Pages/Login/Login';
+import SignUP from './Pages/Login/SignUP';
 import Navbar from './Pages/Navbar/Navbar';
 import Reviews from './Pages/Reviews/Reviews';
 
@@ -23,6 +24,7 @@ function App() {
       <Route path='/reviews' element={<Reviews></Reviews>}></Route>
       <Route path='/login' element={<Login></Login>}></Route>
       <Route path='/contactUs' element={<ContactUs></ContactUs>}></Route>
+      <Route path='/signup' element={<SignUP></SignUP>}></Route>
     </Routes>
     
     </div>

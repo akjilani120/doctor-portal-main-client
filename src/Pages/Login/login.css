@@ -1,0 +1,13 @@
+.login{
+    width: 30%;
+}
+.login-input{
+  width: 100%;
+    
+}
+
+@media screen and (max-width:765px) {
+   .login{
+       width: 90%;
+   }
+}
