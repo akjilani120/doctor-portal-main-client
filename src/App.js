@@ -10,7 +10,8 @@ import SignUP from './Pages/Login/SignUP';
 import Navbar from './Pages/Navbar/Navbar';
 import Reviews from './Pages/Reviews/Reviews';
 import RequireAuth from './Pages/Shared/RequireAuth';
-
+import { ToastContainer } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
       <Route path='/contactUs' element={<ContactUs></ContactUs>}></Route>
       <Route path='/signup' element={<SignUP></SignUP>}></Route>
     </Routes>
-    
+    <ToastContainer />
     </div>
   );
 }
