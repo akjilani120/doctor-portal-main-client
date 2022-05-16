@@ -1,15 +1,30 @@
 import React, { useRef } from 'react';
 import { format } from 'date-fns';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 const ButtonModal = ({ treatment, date, setTreatment }) => {
     const inputAdd = useRef('')
-    const { name, slots } = treatment
+    
+    const { name, slots, _id } = treatment;
+    const [user] = useAuthState(auth)
+   const dateFormating = format(date, 'PP')
     const handleBooking = (event) => {
         event.preventDefault()
-        const slot = event.target.slot.value
-        const slot1 =inputAdd.current.value
-        console.log(slot1)
-        setTreatment(null)
+         const phone = event.target.phone.value
+         const slot =  inputAdd.current.value
+         
+         const booking ={
+            treatmentId : _id,
+            treatment: name,
+            date: dateFormating,
+            slot,
+            patient:user.email,
+            patientName : user.displayName,
+            phone,
 
+         }
+        
+          setTreatment(null)
     }
     return (
         <div>
@@ -18,7 +33,7 @@ const ButtonModal = ({ treatment, date, setTreatment }) => {
                 <div className="modal-box">
                     <label for="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="font-bold text-lg text-secondary">Booking For {name}</h3>
-                    <form onClick={handleBooking} className='grid grid-cols-1 gap-3'>
+                    <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3'>
                         <input name='date' type="text" disabled value={format(date, 'PP')} className="input input-bordered  w-full max-w-xs" />
                         <select ref={inputAdd} className="select select-info w-full max-w-xs">
                             {
@@ -26,9 +41,9 @@ const ButtonModal = ({ treatment, date, setTreatment }) => {
                             }
                            
                         </select>
-                        <input name='name' type="text" placeholder="name" className="input input-bordered  w-full max-w-xs" />
-                        <input name='email' type="email" placeholder="email" className="input input-bordered  w-full max-w-xs" />
-                        <input name='' type="text" placeholder="Type here" className="input input-bordered  w-full max-w-xs" />
+                        <input name='name' value={user.displayName} type="text" placeholder="name" className="input input-bordered  w-full max-w-xs" readOnly disabled/>
+                        <input name='email' value={user.email} type="email" placeholder="email" className="input input-bordered  w-full max-w-xs" readOnly  disabled />
+                        <input name='phone' type="text" placeholder="phone number" className="input input-bordered  w-full max-w-xs" />
                         <input type="submit" value="Submit" className=" btn btn-primary max-w-xs " />
                     </form>
 

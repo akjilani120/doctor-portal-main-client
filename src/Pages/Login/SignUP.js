@@ -1,13 +1,14 @@
-import React from 'react';
-import { useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
+import React, { useRef } from 'react';
+import { useSignInWithGoogle, useUpdatePassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
-import { async } from '@firebase/util';
+
 
 const SignUP = () => {
+  
     const navigate =useNavigate()
     const { register, handleSubmit ,  formState: { errors } } = useForm();
     const [
@@ -15,12 +16,20 @@ const SignUP = () => {
         user,
         loading,
         error,
-      ] = useCreateUserWithEmailAndPassword(auth);
+      ] = useCreateUserWithEmailAndPassword(auth , {sendEmailVerification:true});
       const [updateProfile, updating, UpError] = useUpdateProfile(auth);
+      if(updating){
+          console.log(updating)
+      }
+      if(UpError){
+          console.log(UpError.message)
+      }
     const onSubmit =  async(data) => {
-        await createUserWithEmailAndPassword(data.email, data.password)
-        await updateProfile(data.name);
-        alert('Updated profile');
+        await createUserWithEmailAndPassword(data.email, data.password);
+        const displayName= data.text
+        await updateProfile({displayName});
+        console.log(updateProfile)
+        
     };
     
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
@@ -52,9 +61,9 @@ const SignUP = () => {
                                 <span class="label-text">Name </span>
                                
                             </label>
-                            <input type="text"  {...register("name", { required: true })} class="input input-bordered w-full max-w-xs" />
+                            <input type="text" {...register("text", { required: true })}  class="input input-bordered w-full max-w-xs" />
                             <label class="label">
-                            <span class="label-text-alt text-red-500">{errors.name?.type === 'required' && "Email is required"}</span>
+                            <span class="label-text-alt text-red-500">{errors.name?.type === 'required' && "Name is required"}</span>
                                
                                 
                             </label>

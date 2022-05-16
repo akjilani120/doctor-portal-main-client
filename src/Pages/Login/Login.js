@@ -1,10 +1,18 @@
-import React from 'react';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import React, { useRef } from 'react';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdatePassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
 import { useForm } from "react-hook-form";
 import './login.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 const Login = () => {
+    const emailField = useRef()
+    const [updatePassword] = useUpdatePassword(auth);
+    const handleReset = async() =>{
+       const email = emailField.current.value
+      
+        await updatePassword();
+        alert('Updated password');
+    }
     const { register, handleSubmit ,  formState: { errors } } = useForm();
    const navigate = useNavigate()
     const [
@@ -17,6 +25,11 @@ const Login = () => {
     const handleGoogle = () => {
         signInWithGoogle()
     }
+    
+   const location = useLocation();    
+  
+     const from = location.state?.from?.pathname || "/";
+  
     let errorHandle ;
     if(gerror || error){
         errorHandle=(gerror?.message || error?.message)
@@ -25,7 +38,7 @@ const Login = () => {
         return <loading></loading>
     }
     if (user || guser) {
-        navigate("/appointment")
+        navigate(from, { replace: true });
     }
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email , data.password)
@@ -41,7 +54,7 @@ const Login = () => {
                                 <span class="label-text">Email</span>
                                
                             </label>
-                            <input type="email"  {...register("email", { required: true } ,  {pattern: /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/})} class="input input-bordered w-full max-w-xs" />
+                            <input type="email" ref={emailField}  {...register("email", { required: true } ,  {pattern: /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/})} class="input input-bordered w-full max-w-xs" />
                             <label class="label">
                                 <span class="label-text-alt text-red-500">{errors.email?.type === 'required' && "Email is required"}</span>
                                 <span class="label-text-alt text-red-500">{errors.email?.type === 'pattern' && "Patten is required"}</span>
@@ -53,13 +66,14 @@ const Login = () => {
                             </label>
                             <input type="password"  {...register("password", { required: true })} class="input input-bordered w-full max-w-xs" />
                             <label class="label">
-                            <span class="label-text-alt text-red-500">{errors.password?.type === 'required' && "Email is required"}</span>                                
+                            <span class="label-text-alt text-red-500">{errors.password?.type === 'required' && "Password is required"}</span>                                
                                 
                             </label>
                            
                            <p className='text-red-500'>{errorHandle}</p>
-
+                           <button className='mb-10' >Forget Password ? <span className='text-secondary font-bold' onClick={handleReset}>Reset Now</span> </button>
                            <p> If have not account?  <Link to="/signup"><span className='text-secondary font-bold'>Create Account</span></Link> </p>
+                           
                             <input type="submit" value="Login" class="btn btn-block mt-5  btn-outline" />
                            
                         </form>
