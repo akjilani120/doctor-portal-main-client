@@ -24,6 +24,7 @@ const ButtonModal = ({ treatment, date, setTreatment }) => {
             phone,
 
          };
+         console.log(booking)
 
          fetch("http://localhost:5000/booking", {
              method:"POST",
