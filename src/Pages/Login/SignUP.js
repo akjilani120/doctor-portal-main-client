@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+
 import { useSignInWithGoogle, useUpdatePassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import Loading from '../Shared/Loading';
+import UseTokenAdd from '../Hooks/UseTokenAdd';
 
 
 const SignUP = () => {
@@ -17,22 +18,17 @@ const SignUP = () => {
         loading,
         error,
       ] = useCreateUserWithEmailAndPassword(auth , {sendEmailVerification:true});
-      const [updateProfile, updating, UpError] = useUpdateProfile(auth);
-      if(updating){
-          console.log(updating)
-      }
-      if(UpError){
-          console.log(UpError.message)
-      }
-    const onSubmit =  async(data) => {
+      const [updateProfile, updating, UpError] = useUpdateProfile(auth);     
+     
+    const onSubmit =  async(data) => {      
         await createUserWithEmailAndPassword(data.email, data.password);
         const displayName= data.text
         await updateProfile({displayName});
-        console.log(updateProfile)
+       
         
-    };
-    
+    };    
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+    const [token] = UseTokenAdd(user || guser)
     const handleGoogle = () => {
         signInWithGoogle()
     }
@@ -44,12 +40,14 @@ const SignUP = () => {
     if(loading || gloading){
         return <Loading></Loading>
     }
+   
     if (user )  {
        navigate('/login')
     }
     if(guser){
         navigate('/appointment') 
     }
+    
     return (
         <div className='flex justify-center items-center h-4/5 h-screen '>
             <div className="card  bg-base-100 shadow-xl  login ">
@@ -83,7 +81,7 @@ const SignUP = () => {
                             </label>
                             <input type="password"  {...register("password", { required: true })} class="input input-bordered w-full max-w-xs" />
                             <label class="label">
-                            <span class="label-text-alt text-red-500">{errors.password?.type === 'required' && "Email is required"}</span>
+                            <span class="label-text-alt text-red-500">{errors.password?.type === 'required' && "Password is required"}</span>
                                
                             </label>
                            
