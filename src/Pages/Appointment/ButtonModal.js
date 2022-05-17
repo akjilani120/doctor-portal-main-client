@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
-const ButtonModal = ({ treatment, date, setTreatment }) => {
+const ButtonModal = ({ treatment, date, setTreatment, refetch }) => {
     const inputAdd = useRef('')
     
     const { name, slots, _id } = treatment;
@@ -41,6 +41,7 @@ const ButtonModal = ({ treatment, date, setTreatment }) => {
             }else{
                 toast.error(`Already booking ${data.booking?.date} at ${data.booking?.slot}`)
             }
+            refetch()
             setTreatment(null)
          } )
          

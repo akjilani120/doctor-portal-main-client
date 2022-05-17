@@ -10,26 +10,14 @@ const AvailabeAppointment = ({date}) => {
     const [treatment , setTreatment] = useState("")
     const formatingDate = format(date , "PP")
     
-    const { data:services,  isLoading } = useQuery('repoData', () =>
+    const { data:services,  isLoading , refetch} = useQuery(['available' , formatingDate], () =>
     fetch(`http://localhost:5000/available?date=${formatingDate}`)       
     .then(res => res.json()))
     if(isLoading){
         return <Loading></Loading>
     }
     
-    // useEffect(() =>{
-    //    if(date){
-    //     // fetch(`http://localhost:5000/available?date=${formatingDate}`)       
-    //     // .then(res => res.json())
-    //     // .then(data => setServices(data))
-       
-     
-    //     // const { isLoading, error, data } =useQuery('repoData', () =>
-    //     // fetch(`http://localhost:5000/available?date=${formatingDate}`)       
-    //     // .then(res => res.json())
-    // //  )
-    //    }
-    // } ,[formatingDate])
+   
     return (
         <div className='my-5 px-12'>
             <p className='text-3xl my-5 font-bold text-secondary'>You are selected : {format(date, 'PP')}</p>
@@ -39,7 +27,7 @@ const AvailabeAppointment = ({date}) => {
             }
             </div>
             {
-                treatment && <ButtonModal treatment={treatment} date ={date} setTreatment={setTreatment}></ButtonModal>
+                treatment && <ButtonModal refetch={refetch} treatment={treatment} date ={date} setTreatment={setTreatment}></ButtonModal>
             }
         </div>
     );
