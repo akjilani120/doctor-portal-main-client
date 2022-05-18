@@ -31,18 +31,10 @@ const Dashboard = () => {
     }
   }, [user])
   
-  return <div>
-
-    <div class="drawer drawer-mobile">
-      <input id=" dashboard-sidenav" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col ">
-        {/* <!-- Page content here --> */}
-
-        <h1 className='text-5xl text-red-500'>This is dashboard </h1>
-        <Outlet />
-        <div class="overflow-x-auto">
-          <table class="table w-full">
-            {/* <!-- head --> */}
+  return <div className='overflow-x-auto'>
+    
+     <table class="table w-full">
+            
             <thead>
               <tr>
                 <th></th>
@@ -66,18 +58,6 @@ const Dashboard = () => {
              
             </tbody>
           </table>
-        </div>
-      </div>
-      <div class="drawer-side">
-        <label for=" dashboard-sidenav" class="drawer-overlay"></label>
-        <ul class="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content">
-          {/* <!-- Sidebar content here --> */}
-          <li><Link to={'/dashboard'}>MY Appointment</Link></li>
-          <li><Link to={'/dashboard/myreviews'}>My Reviews</Link></li>
-        </ul>
-
-      </div>
-    </div>
   </div>
 
 
