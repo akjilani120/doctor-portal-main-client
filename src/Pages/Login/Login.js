@@ -1,9 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdatePassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init'
 import { useForm } from "react-hook-form";
 import './login.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import UseTokenAdd from '../Hooks/UseTokenAdd';
+import Loading from '../Shared/Loading'
 const Login = () => {
     const emailField = useRef()
     const [updatePassword] = useUpdatePassword(auth);
@@ -22,6 +24,7 @@ const Login = () => {
         error,
       ] = useSignInWithEmailAndPassword(auth);
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+    const [token] = UseTokenAdd(user || guser)
     const handleGoogle = () => {
         signInWithGoogle()
     }
@@ -29,17 +32,19 @@ const Login = () => {
    const location = useLocation();    
   
      const from = location.state?.from?.pathname || "/";
-  
+     useEffect(() =>{
+        if (token) {
+            navigate(from, { replace: true });
+        }
+     } , [token])
     let errorHandle ;
     if(gerror || error){
         errorHandle=(gerror?.message || error?.message)
     }
     if( gloading ||  loading){
-        return <loading></loading>
+        return <Loading></Loading>
     }
-    if (user || guser) {
-        navigate(from, { replace: true });
-    }
+    
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email , data.password)
     };

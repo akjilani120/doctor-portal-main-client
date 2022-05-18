@@ -1,18 +1,36 @@
+import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 
 const Dashboard = () => {
   const [appointments, setAppointments] = useState([])
   const [user] = useAuthState(auth)
+   const navigate =useNavigate()
   useEffect(() => {
-    if (user) {
-      fetch(`http://localhost:5000/booking?query=${user.email}`)
-        .then(res => res.json())
-        .then(data => setAppointments(data))
+    if (user) {     
+
+      fetch(`http://localhost:5000/booking?patient=${user.email}`,{
+        method:"GET",
+        headers:{
+          "authorization" : `Bearer ${localStorage.getItem("accessToken")}`
+        }
+      })
+        .then(res => {
+         if(res.status === 401 || res.status === 403){
+          signOut(auth)
+          localStorage.removeItem("accessToken")
+          navigate('/')
+         }
+         return res.json()})
+        .then(data => {
+         
+          setAppointments(data)
+        })
     }
   }, [user])
+  
   return <div>
 
     <div class="drawer drawer-mobile">
@@ -20,7 +38,7 @@ const Dashboard = () => {
       <div class="drawer-content flex flex-col ">
         {/* <!-- Page content here --> */}
 
-        <h1 className='text-5xl text-red-500'>This is dashboard </h1> {appointments.length}
+        <h1 className='text-5xl text-red-500'>This is dashboard </h1>
         <Outlet />
         <div class="overflow-x-auto">
           <table class="table w-full">
@@ -36,7 +54,7 @@ const Dashboard = () => {
             </thead>
             <tbody>
              {
-               appointments.map((a, index) =>  <tr>
+               appointments?.map((a, index) =>  <tr>
                 <th>{index + 1}</th>
                 <td>{a.patientName}</td>
                 <td>{a.date}</td>

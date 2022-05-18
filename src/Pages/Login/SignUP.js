@@ -27,8 +27,10 @@ const SignUP = () => {
        
         
     };    
-    const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
-    const [token] = UseTokenAdd(user || guser)
+    const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);    
+        const [token] = UseTokenAdd(user || guser)
+    
+   
     const handleGoogle = () => {
         signInWithGoogle()
     }
@@ -41,12 +43,10 @@ const SignUP = () => {
         return <Loading></Loading>
     }
    
-    if (user )  {
-       navigate('/login')
-    }
-    if(guser){
+    if (token)  {
         navigate('/appointment') 
     }
+    
     
     return (
         <div className='flex justify-center items-center h-4/5 h-screen '>
