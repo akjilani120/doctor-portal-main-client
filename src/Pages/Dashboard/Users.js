@@ -4,9 +4,9 @@ import Loading from '../Shared/Loading';
 import User from './User';
 
 const Users = () => {
-    // const [users , setUsers] = useState([])
+   
     const { isLoading, error, data, refetch } = useQuery('users', () =>
-    fetch('http://localhost:5000/users', {
+    fetch('https://secure-temple-10232.herokuapp.com/users', {
         method:"GET",
         headers:{
             authorization : `Bearer ${localStorage.getItem("accessToken")}`

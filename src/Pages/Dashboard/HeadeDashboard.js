@@ -28,7 +28,17 @@ const HeadeDashboard = () => {
                         <li><Link to={'/headDashboard/myAppointment'}>MY Appointment</Link></li>
                         <li><Link to={'/headDashboard/myreviews'}>My Reviews</Link></li>
                         <li><Link to={'/headDashboard/history'}>My History</Link></li>
-                        <li>{ admin && <Link to={'/headDashboard/users'}>Users</Link>}</li>
+                        <li>
+                            { admin &&  <>
+                                <Link to={'/headDashboard/users'}>Users</Link>
+                                <Link to={'/headDashboard/addDoctor'}>Add Doctor</Link>
+                            </>
+                           
+                            }
+                           
+                         </li>
+                                                    
+                        
                     </ul>
 
                 </div>
