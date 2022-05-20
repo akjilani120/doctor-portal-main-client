@@ -1,5 +1,5 @@
 
-import { useSignInWithGoogle, useUpdatePassword, useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -18,7 +18,7 @@ const SignUP = () => {
         loading,
         error,
       ] = useCreateUserWithEmailAndPassword(auth , {sendEmailVerification:true});
-      const [updateProfile, updating, UpError] = useUpdateProfile(auth);     
+      const [updateProfile,  UpError] = useUpdateProfile(auth);     
      
     const onSubmit =  async(data) => {      
         await createUserWithEmailAndPassword(data.email, data.password);

@@ -20,6 +20,7 @@ import Users from './Pages/Dashboard/Users';
 import HeadeDashboard from './Pages/Dashboard/HeadeDashboard';
 import RequireAdmin from './Pages/Shared/RequireAdmin';
 import AddDoctor from './Pages/Dashboard/AddDoctor';
+import ManageDoctor from './Pages/Dashboard/ManageDoctor';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route path='history' element={<History></History>}></Route>
           <Route path='users' element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
           <Route path='addDoctor' element={<RequireAdmin><AddDoctor></AddDoctor></RequireAdmin>}></Route>
+          <Route path='manageDoctor' element={<RequireAdmin><ManageDoctor></ManageDoctor></RequireAdmin>}></Route>
         </Route>
         <Route path='/reviews' element={<Reviews></Reviews>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>

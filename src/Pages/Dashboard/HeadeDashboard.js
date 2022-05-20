@@ -32,6 +32,7 @@ const HeadeDashboard = () => {
                             { admin &&  <>
                                 <Link to={'/headDashboard/users'}>Users</Link>
                                 <Link to={'/headDashboard/addDoctor'}>Add Doctor</Link>
+                                <Link to={'/headDashboard/manageDoctor'}>Manage Doctor</Link>
                             </>
                            
                             }

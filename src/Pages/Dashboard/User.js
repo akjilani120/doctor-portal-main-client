@@ -16,7 +16,8 @@ const User = ({user, index, refetch}) => {
         }
         return res.json()})
     .then(data =>{ 
-       if(data.modifiendCount > 0){
+       if(data){
+           console.log(data)
            toast("success added admin")
         refetch()
        }
