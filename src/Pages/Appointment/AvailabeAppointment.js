@@ -6,7 +6,7 @@ import ButtonModal from './ButtonModal';
 import Service from './Service';
 
 const AvailabeAppointment = ({date}) => {
-    // const[services , setServices] =useState([])
+    
     const [treatment , setTreatment] = useState("")
     const formatingDate = format(date , "PP")
     

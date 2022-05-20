@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const ButtonModal = ({ treatment, date, setTreatment, refetch }) => {
     const inputAdd = useRef('')
     
-    const { name, slots, _id } = treatment;
+    const { name, slots, _id, price } = treatment;
     const [user] = useAuthState(auth)
    const dateFormating = format(date, 'PP')
     const handleBooking = (event) => {
@@ -22,9 +22,10 @@ const ButtonModal = ({ treatment, date, setTreatment, refetch }) => {
             patient:user.email,
             patientName : user.displayName,
             phone,
+            price: price,
 
          };
-         console.log(booking)
+        
 
          fetch("https://secure-temple-10232.herokuapp.com/booking", {
              method:"POST",
@@ -64,6 +65,7 @@ const ButtonModal = ({ treatment, date, setTreatment, refetch }) => {
                         </select>
                         <input name='name' value={user.displayName} type="text" placeholder="name" className="input input-bordered  w-full max-w-xs" readOnly disabled/>
                         <input name='email' value={user.email} type="email" placeholder="email" className="input input-bordered  w-full max-w-xs" readOnly  disabled />
+                        <input name='price' type="text"  value={price} className="input input-bordered  w-full max-w-xs" readOnly disabled />
                         <input name='phone' type="text" placeholder="phone number" className="input input-bordered  w-full max-w-xs" />
                         <input type="submit" value="Submit" className=" btn btn-primary max-w-xs " />
                     </form>

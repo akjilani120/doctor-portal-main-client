@@ -1,5 +1,6 @@
 import { signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-day-picker';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
@@ -42,6 +43,7 @@ const Dashboard = () => {
                 <th>Date </th>
                 <th>Time</th>
                 <th>Treatment</th>
+                <th>Payment</th>
               </tr>
             </thead>
             <tbody>
@@ -51,7 +53,11 @@ const Dashboard = () => {
                 <td>{a.patientName}</td>
                 <td>{a.date}</td>
                 <td>{a.slot}</td>
-                <td>{a.treatment}</td>
+                <td>{a.treatment}</td>                
+                <td>{(a.price && !a.paid) &&  <Link to={`/headDashboard/payment/${a._id}`}><button className='btn btn-secondary'>pay</button></Link> }
+                {(a.price && a.paid) && <span className='btn btn-success'>paid</span>}
+                </td>
+                
               </tr> )
              }
              
